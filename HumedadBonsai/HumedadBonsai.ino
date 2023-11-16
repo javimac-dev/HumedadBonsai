@@ -6,8 +6,13 @@ const int pinSensor = A0;  // Pin analógico donde está conectado el sensor de 
 
 int lecturaHumedad; // variable global
 int porcentajeHumedad;
+int delaySeco = 1000;
+int delayHumedo = 18000000; //(5 horas)
+
 const int lecturaSeco = 1015; // Valor de lectura en condición de suelo seco
+//const int lecturaAgua = 524;  // Valor de lectura en condición de suelo húmedo
 const int lecturaAgua = 524;  // Valor de lectura en condición de suelo húmedo
+
 
 void setup() 
 {
@@ -28,19 +33,22 @@ void loop()
   while (lecturaHumedad > 769)
   {
     lcd.clear();  // Borra ambas líneas de la pantalla
-    lcd.print("eche agua " + String(lecturaHumedad));
-    lecturaHumedad = analogRead(pinSensor);
+    lcd.print("SUELO SECO");
+    porcentajeHumedad = map(lecturaHumedad, lecturaSeco, lecturaAgua, 0, 100);
+    lcd.setCursor(0, 1); // Ubica el cursor en la segunda línea
+    lcd.print("Humedad " + String(porcentajeHumedad)+ " %");
+
+    lecturaHumedad = analogRead(pinSensor); //lectura del sensor de humedad
     delay(1000);
   }
 
   /*La siguiente impresión se ubica después del while para que se actualice inmediatamente después de echar agua al bonsai*/
   lcd.clear();  // Borra ambas líneas de la pantalla
-  lcd.setCursor(0, 0); // Ubica el cursor en la primera línea
+//  lcd.setCursor(0, 0); // Ubica el cursor en la primera línea
   lcd.print("HOLA, SOY KIS");
+  porcentajeHumedad = map(lecturaHumedad, lecturaSeco, lecturaAgua, 0, 100);
   lcd.setCursor(0, 1); // Ubica el cursor en la segunda línea
-
-
-  lcd.print("tierra húmeda");
+  lcd.print("Humedad " + String(porcentajeHumedad)+ " %");
 
 
 //  lcd.print("Humedo = " + String(lecturaHumedad)); //la lectura e impresión de humedad también está dentro del while, **toca hacer una función**
