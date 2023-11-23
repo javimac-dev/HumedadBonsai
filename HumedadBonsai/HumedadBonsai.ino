@@ -29,9 +29,9 @@ int segundos = 0;
 int contador=tiempoCiclo;
 
 // Valores para el cálculo del porcentaje de humedad
-const int valorMinimo = 420; // Valor correspondiente al 100% de humedad
+const int valorMinimo = 40; // Valor correspondiente al 100% de humedad
 const int valorMaximo = 1023; // Valor correspondiente al 0% de humedad
-// media=721
+// media=491
 
 void setup() 
 {
